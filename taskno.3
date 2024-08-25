@@ -1,0 +1,31 @@
+#Password Generator Program
+import random
+import string
+
+def generate_password(length):
+    characters = string.ascii_letters + string.digits + string.punctuation
+    password = ""
+    for _ in range(length):
+        password += random.choice(characters)
+    
+    return password
+
+def main():
+    while True:
+        try:
+            length = int(input("Enter the length of the password : "))
+            if length < 6:
+                print("Password length must be at least 6 characters.")
+            else:
+                break
+        except ValueError:
+            print("Invalid input")
+
+    # Generate the password
+    password = generate_password(length)
+
+    # Display the password
+    print(f"Generated Password: {password}")
+
+if __name__ == "__main__":
+    main()
