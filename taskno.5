@@ -1,0 +1,75 @@
+import os
+
+# Function to display the menu
+def display_menu():
+    print("\nTo-Do List Application")
+    print("1. Add Task")
+    print("2. View Tasks")
+    print("3. Delete Task")
+    print("4. Mark Task as Completed")
+    print("5. Exit")
+
+# Function to display the tasks
+def view_tasks(tasks):
+    if len(tasks) == 0:
+        print("\nNo tasks available.")
+    else:
+        print("\nTo-Do List:")
+        for idx, task in enumerate(tasks, start=1):
+            status = "Completed" if task['completed'] else "Pending"
+            print(f"{idx}. {task['task']} - {status}")
+
+# Function to add a task
+def add_task(tasks):
+    task = input("\nEnter the task description: ")
+    tasks.append({'task': task, 'completed': False})
+    print("Task added!")
+
+# Function to delete a task
+def delete_task(tasks):
+    try:
+        task_id = int(input("\nEnter the task number to delete: "))
+        if task_id < 1 or task_id > len(tasks):
+            print("Invalid task number.")
+        else:
+            removed_task = tasks.pop(task_id - 1)
+            print(f"Task '{removed_task['task']}' deleted.")
+    except ValueError:
+        print("Please enter a valid number.")
+
+# Function to mark a task as completed
+def mark_task_completed(tasks):
+    try:
+        task_id = int(input("\nEnter the task number to mark as completed: "))
+        if task_id < 1 or task_id > len(tasks):
+            print("Invalid task number.")
+        else:
+            tasks[task_id - 1]['completed'] = True
+            print(f"Task '{tasks[task_id - 1]['task']}' marked as completed.")
+    except ValueError:
+        print("Please enter a valid number.")
+
+# Main program logic
+def main():
+    tasks = []  # List to store tasks
+    while True:
+        display_menu()
+        choice = input("\nChoose an option (1-5): ")
+        
+        if choice == '1':
+            add_task(tasks)
+        elif choice == '2':
+            view_tasks(tasks)
+        elif choice == '3':
+            delete_task(tasks)
+        elif choice == '4':
+            mark_task_completed(tasks)
+        elif choice == '5':
+            print("Exiting To-Do List application.")
+            break
+        else:
+            print("Invalid choice. Please choose a valid option.")
+
+# Run the program
+if __name__ == "__main__":
+    main()
